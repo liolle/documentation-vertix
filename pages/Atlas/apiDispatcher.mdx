@@ -1,0 +1,56 @@
+import Image from "next/image";
+
+## APIDispatcher
+
+The purpose of APIDispatcher is to create standard JSON responses.
+
+<Image
+  src={`${process.env.NEXT_PUBLIC_CDN}/doc/dispatcher.png`}
+  alt="Hello"
+  width={1000}
+  height={1000}
+/>
+
+It works as follow :
+
+1. Create an instance of APIDispathcher and give it the reference of an APIResponse object and use the dispatch function to append data.
+
+```typescript
+const result = await getAllPosts({ input: input, options: options });
+
+const response = {
+  version: APIVersion,
+  self: "",
+};
+
+new APIDispatcher(response).dispatch(result);
+
+// Here response either look like this if an error in case of an error
+
+{
+  version: string;
+  self: string;
+  error: {
+    error: string;
+    details: string;
+  }
+}
+
+// Or this the request is successful
+
+{
+  version: string;
+  self: string;
+  data: {
+    type: APIDataTypesName;
+    count: number;
+    content: {
+      actions: LinkAction[];
+      item: PostTypes[];
+    }[];
+  };
+
+}
+
+
+```

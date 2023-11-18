@@ -1,18 +1,21 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import React from "react";
+import { DocsThemeConfig } from "nextra-theme-docs";
+import { LogoSVG } from "./components/logo";
 
 const config: DocsThemeConfig = {
-  logo: <span>My Project</span>,
+  logo: (
+    <span>
+      <LogoSVG />
+    </span>
+  ),
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: "https://github.com/liolle/documentation-vertix",
   },
-  chat: {
-    link: 'https://discord.com',
-  },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
-  footer: {
-    text: 'Nextra Docs Template',
-  },
-}
 
-export default config
+  docsRepositoryBase: "https://github.com/liolle/documentation-vertix",
+  footer: {
+    text: "© Vertix",
+  },
+};
+
+export default config;

@@ -1,0 +1,35 @@
+## AtlasClient
+
+List of functions to execute common actions such as.
+
+- ChangeProfilePicture
+- Add Post
+- Like Post
+
+```typescript
+import AtlasClient from "@/src/services/atlas/client";
+
+const result = await AtlasClient.addPost({
+  input: {
+    reference: reference,
+    content: content,
+    files: urls,
+  },
+});
+```
+
+## AWSClient
+
+Wrapper around aws sdk, provide function such as
+
+- getPresignedUrl
+- putS3
+- pushFiles
+
+```typescript
+import UploadServiceClient from "@/src/services/aws/client";
+
+const data = await UploadServiceClient.getPresignedUrl({
+  key: "test",
+});
+```

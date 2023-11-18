@@ -1,0 +1,97 @@
+import Image from "next/image";
+
+## ERD
+
+<Image
+  src={`${process.env.NEXT_PUBLIC_CDN}/doc/Atlas_db_v1.png`}
+  alt="Hello"
+  width={1000}
+  height={1000}
+/>
+
+## Triggers
+
+[Triggers](https://www.postgresql.org/docs/current/plpgsql-trigger.html) are used here to keep the value of likes and comments up to date.
+
+#### `Advantage` :
+
+- Don't need to join tables to get the number of posts likes and comments.
+
+#### `Drawback` :
+
+- More expensive comment and like requests.
+
+## Portal
+
+Any interaction with the database goes through the functions defined in `portal.ts` .
+It acts as a wall between the actual function executing the sql query and the rest of the program.
+
+<Image
+  src={`${process.env.NEXT_PUBLIC_CDN}/doc/portal.png`}
+  alt="Hello"
+  width={1000}
+  height={1000}
+/>
+
+```typescript
+// ...
+// function responsible for retreiving posts
+
+interface GetPostsProps {
+  input: GetPostInput;
+  APIResponse?: APIResponse;
+  options?: {
+    mock?: SQLInterfaceOptions;
+  };
+}
+
+export const GetPosts = async ({
+  input,
+  APIResponse,
+  options,
+}: GetPostsProps): Promise<APIResponse> => {
+  const result =
+    input.field == "all"
+      ? await getAllPosts({ input: input, options: options })
+      : await getPost({ input: input, options: options });
+
+  const response = APIResponse
+    ? APIResponse
+    : {
+        version: APIVersion,
+        self: "",
+      };
+
+  new APIDispatcher(response).dispatch(result);
+  return response;
+};
+
+// ...
+```
+
+## Tests
+
+Portal tests are designed to supplement TypeScript type validation, ensuring that accurate inputs are provided for function execution and validating the correctness of SQL query execution and output values.
+
+```bash
+ PASS  src/__tests__/sql/posts.test.ts
+  Post
+    GetPosts
+      Input: Incorrect
+        √ Empty string reference : Should return an Error  (3 ms)
+        √ Empty string value : Should return an Error  (1 ms)
+        √ Empty string self : Should return an Error  (1 ms)
+      Input: Correct
+        √ By field : self  (1 ms)
+        √ By field : owner
+        √ By field : all  (1 ms)
+    AddPost
+      Input: Incorrect
+        √ Empty string reference : Should return an Error  (5 ms)
+      Input: Correct
+        √  Base case  (1 ms)
+```
+
+## Migrations
+
+[Drizzle ORM](https://orm.drizzle.team/docs/migrations) is used to handle schema modifications
