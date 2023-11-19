@@ -4,7 +4,7 @@ Documentation for the following projects
 
 - [**Atlas**](https://atlas.vertix.tech)
 
-[![](.github/screenshot.png)](https://doc.vertix.tech)
+[![](https://d22f1kls6ex9ii.cloudfront.net/doc/doc1.png)](https://doc.vertix.tech)
 
 ## Atlas
 
