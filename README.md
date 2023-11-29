@@ -1,7 +1,4 @@
 # Vertix
-
-Documentation for the following projects
-
 - [**Atlas**](https://atlas.vertix.tech)
 
 #### Doc :
